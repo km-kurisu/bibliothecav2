@@ -1,4 +1,6 @@
 'use client'
+export const dynamic = 'force-dynamic';
+
 import { useCart } from '../lib/cart'
 import { useAuth } from '@/context/AuthContext'
 import { createClient } from '@/utils/supabase/client'
