@@ -1,0 +1,1 @@
+DATABASE_URL="postgresql://postgres:kurisu@015@db.evviynebunshlmzlnlcn.supabase.co:5432/postgres"

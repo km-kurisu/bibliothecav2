@@ -1,103 +1,220 @@
+'use client'
 import Image from "next/image";
+import useEmblaCarousel from 'embla-carousel-react';
+import { useCallback, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [isPlaying, setIsPlaying] = useState(true);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  // Auto scroll functionality
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const autoplay = setInterval(() => {
+      if (isPlaying) {
+        emblaApi.scrollNext();
+      }
+    }, 2000);
+
+    return () => clearInterval(autoplay);
+  }, [emblaApi, isPlaying]);
+
+  const heroSlides = [
+    {
+      image: "/carousel/SAO-gradient_-_Made_with_PosterMyWall-transformed.jpeg",
+      title: "Sword Art Online",
+      description: "Enter the virtual world of Aincrad"
+    },
+    {
+      image: "/carousel/classroomofelite-gradient_-_Made_with_PosterMyWall-transformed.jpeg",
+      title: "Classroom of the Elite",
+      description: "Where meritocracy meets manipulation"
+    },
+    {
+      image: "/carousel/bakemonogatari-gradient_-_Made_with_PosterMyWall-transformed.jpeg",
+      title: "Bakemonogatari",
+      description: "A supernatural mystery series"
+    },
+    {
+      image: "/carousel/itstartswithus-gradient-transformed.jpeg",
+      title: "It Starts With Us",
+      description: "A powerful story of love and resilience"
+    },
+    {
+      image: "/carousel/thewindupbird-gradient-transformed.jpeg",
+      title: "The Wind-Up Bird Chronicle",
+      description: "A masterpiece of magical realism"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Hero Section with Carousel */}
+      <section id="home" className="relative h-[400px] md:h-[500px] lg:h-[600px] bg-[#1d293d]">
+        <div 
+          className="embla overflow-hidden" 
+          ref={emblaRef}
+          onMouseEnter={() => setIsPlaying(false)}
+          onMouseLeave={() => setIsPlaying(true)}
+        >
+          <div className="embla__container flex">
+            {heroSlides.map((slide, index) => (
+              <div key={index} className="embla__slide flex-[0_0_100%] relative h-[400px] md:h-[500px] lg:h-[600px]">
+                <div className="absolute inset-0 bg-[#1d293d]/80 z-10"></div>
+                <Image
+                  src={slide.image}
+                  alt={slide.title}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                />
+                <div className="absolute inset-0 z-20 flex items-center justify-center text-white px-4">
+                  <div className="text-center drop-shadow-lg" style={{textShadow: '0 2px 8px #000, 0 1px 2px #000'}}> {/* Add text shadow for readability */}
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">{slide.title}</h2>
+                    <p className="text-lg md:text-xl mb-4 md:mb-8">{slide.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        
+        {/* Carousel Navigation Buttons */}
+        <button 
+          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 bg-white/80 p-2 rounded-full hover:bg-white"
+          onClick={scrollPrev}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <FiChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-[#1d293d]" />
+        </button>
+        <button 
+          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 bg-white/80 p-2 rounded-full hover:bg-white"
+          onClick={scrollNext}
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <FiChevronRight className="w-5 h-5 md:w-6 md:h-6 text-[#1d293d]" />
+        </button>
+      </section>
+
+      {/* Featured Books Section */}
+      <section id="featured" className="py-12 md:py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-[#1d293d]">Featured Books</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {/* Featured Book Cards */}
+            {[
+              {
+                title: "Harry Potter and the Philosopher's Stone",
+                author: "J.K. Rowling",
+                price: 699,
+                image: "/covers/harryphilosophergryff.jpg"
+              },
+              {
+                title: "Sword Art Online: Alicization",
+                author: "Reki Kawahara",
+                price: 599,
+                image: "/covers/SAOAlici.jpeg"
+              },
+              {
+                title: "No Longer Human",
+                author: "Osamu Dazai",
+                price: 499,
+                image: "/covers/nolongerhuman.jpeg"
+              },
+              {
+                title: "Classroom of the Elite",
+                author: "Syougo Kinugasa",
+                price: 549,
+                image: "/covers/classroomofelites.jpeg"
+              },
+              {
+                title: "It Ends With Us",
+                author: "Colleen Hoover",
+                price: 599,
+                image: "/covers/itendswihtus.jpg"
+              },
+              {
+                title: "The Wind-Up Bird Chronicle",
+                author: "Haruki Murakami",
+                price: 649,
+                image: "/covers/thewindupbird.png"
+              }
+            ].map((book, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="relative h-64 sm:h-72 md:h-80 bg-[#1d293d]/5 flex items-center justify-center">
+                  <Image
+                    src={book.image}
+                    alt={book.title}
+                    fill
+                    className="object-contain p-4"
+                  />
+                </div>
+                <div className="p-4 md:p-6">
+                  <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#1d293d] line-clamp-2">{book.title}</h3>
+                  <p className="text-[#1d293d]/70 mb-2">{book.author}</p>
+                  <p className="text-[#1d293d]/70 mb-4 text-sm md:text-base">A captivating story that will keep you engaged from start to finish.</p>
+                  <div className="flex justify-between items-center">
+                    <p className="text-[#1d293d] font-semibold">₹{book.price.toFixed(2)}</p>
+                    <Link href="/shop" className="bg-[#1d293d] text-white px-3 py-1.5 md:px-4 md:py-2 rounded hover:bg-[#1d293d]/90 transition-colors text-sm md:text-base">
+                      View Details
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-12 md:py-20 bg-[#1d293d]/5">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-[#1d293d]">Contact Us</h2>
+          <div className="max-w-2xl mx-auto">
+            <form className="space-y-4 md:space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-[#1d293d]">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  className="mt-1 block w-full rounded-md text-[#1d293d] border-[#1d293d]/20 shadow-sm focus:border-[#1d293d] focus:ring-[#1d293d]"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-[#1d293d]">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  className="mt-1 block w-full text-[#1d293d] rounded-md border-[#1d293d]/20 shadow-sm focus:border-[#1d293d] focus:ring-[#1d293d]"
+                />
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-[#1d293d]">Message</label>
+                <textarea
+                  id="message"
+                  rows="4"
+                  className="mt-1 block w-full rounded-md text-[#1d293d] border-[#1d293d]/20 shadow-sm focus:border-[#1d293d] focus:ring-[#1d293d]"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-[#1d293d] text-white px-6 py-3 rounded-lg hover:bg-[#1d293d]/90 transition-colors text-sm md:text-base"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
