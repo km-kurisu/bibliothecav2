@@ -1,11 +1,12 @@
 'use client'
 
 import Link from 'next/link'
+import { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { adminSignup } from './actions'
 import { FiLock, FiUser, FiAlertCircle } from 'react-icons/fi'
 
-export default function AdminSignup() {
+function AdminSignupInner() {
   const searchParams = useSearchParams()
   const message = searchParams.get('message')
 
@@ -103,4 +104,12 @@ export default function AdminSignup() {
       </div>
     </div>
   )
-} 
+}
+
+export default function AdminSignup() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <AdminSignupInner />
+    </Suspense>
+  )
+}
