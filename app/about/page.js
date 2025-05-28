@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image';
-import { FiGithub, FiLinkedin, FiTwitter, FiMail } from 'react-icons/fi';
+import { FiGithub, FiInstagram, FiLinkedin, FiMail } from 'react-icons/fi';
 
 export default function About() {
   return (
@@ -79,7 +79,7 @@ export default function About() {
                     <FiGithub className="w-6 h-6" />
                   </a>
                   <a 
-                    href="https://linkedin.com/in/yourusername" 
+                    href="https://www.linkedin.com/in/kamlesh-mistry-957895260/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-[#1d293d] hover:text-[#1d293d]/80 transition-colors"
@@ -87,12 +87,12 @@ export default function About() {
                     <FiLinkedin className="w-6 h-6" />
                   </a>
                   <a 
-                    href="https://twitter.com/yourusername" 
+                    href="https://www.instagram.com/kamleshm_02/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-[#1d293d] hover:text-[#1d293d]/80 transition-colors"
                   >
-                    <FiTwitter className="w-6 h-6" />
+                    <FiInstagram className="w-6 h-6" />
                   </a>
                   <a 
                     href="mailto:kamleshkmistry33@gmailcom" 

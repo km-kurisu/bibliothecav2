@@ -9,8 +9,9 @@ const categories = [
   'Fiction',
   'Non-Fiction',
   'Manga',
+  'Romance',
   'Light Novels',
-  'Biography',
+  'Horror',
   'Self-Help'
 ];
 
@@ -100,7 +101,7 @@ const books = [
     title: "No Longer Human",
     author: "Osamu Dazai",
     price: 499,
-    category: "Fiction",
+    category: "Non-Fiction",
     image: "/covers/nolongerhuman.jpeg"
   },
   {
@@ -108,7 +109,7 @@ const books = [
     title: "The Wind-Up Bird Chronicle",
     author: "Haruki Murakami",
     price: 649,
-    category: "Fiction",
+    category: "Self-Help",
     image: "/covers/thewindupbird.png"
   },
   {
@@ -116,7 +117,7 @@ const books = [
     title: "It Starts With Us",
     author: "Colleen Hoover",
     price: 599,
-    category: "Fiction",
+    category: "Romance",
     image: "/covers/itstartswithus.jpeg"
   },
   {
@@ -124,7 +125,7 @@ const books = [
     title: "It Ends With Us",
     author: "Colleen Hoover",
     price: 599,
-    category: "Fiction",
+    category: "Romance",
     image: "/covers/itendswihtus.jpg"
   },
   {
@@ -132,7 +133,7 @@ const books = [
     title: "Out",
     author: "Natsuo Kirino",
     price: 549,
-    category: "Fiction",
+    category: "Horror",
     image: "/covers/out.jpeg"
   }
 ];

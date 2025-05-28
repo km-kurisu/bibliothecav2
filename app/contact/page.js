@@ -58,8 +58,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-[#1d293d] mb-1">Email</h3>
-                    <p className="text-[#1d293d]/80">info@bibliotheca.com</p>
-                    <p className="text-[#1d293d]/80">support@bibliotheca.com</p>
+                    <p className="text-[#1d293d]/80">Kamleshkmmistry33@gmai.com</p>
+                    <p className="text-[#1d293d]/80">nexdevcorp@gmail.com</p>
                   </div>
                 </div>
 
@@ -69,8 +69,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-[#1d293d] mb-1">Phone</h3>
-                    <p className="text-[#1d293d]/80">+1 (123) 456-7890</p>
-                    <p className="text-[#1d293d]/80">+1 (123) 456-7891</p>
+                    <p className="text-[#1d293d]/80">+91 81778 66278</p>
                   </div>
                 </div>
 

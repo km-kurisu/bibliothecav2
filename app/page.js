@@ -80,7 +80,7 @@ export default function Home() {
                   priority={index === 0}
                 />
                 <div className="absolute inset-0 z-20 flex items-center justify-center text-white px-4">
-                  <div className="text-center drop-shadow-lg" style={{textShadow: '0 2px 8px #000, 0 1px 2px #000'}}> {/* Add text shadow for readability */}
+                  <div className="text-center drop-shadow-lg" > {/* Add text shadow for readability */}
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">{slide.title}</h2>
                     <p className="text-lg md:text-xl mb-4 md:mb-8">{slide.description}</p>
                   </div>
