@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { CartProvider } from "./lib/cart";
 import ClientLayout from './ClientLayout';
 import { AuthProvider } from '@/context/AuthContext'
+import { Analytics } from '@vercel/analytics/react'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
             </ClientLayout>
           </CartProvider>
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   )
