@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { CartProvider } from "./lib/cart";
 import ClientLayout from './ClientLayout';
 import { AuthProvider } from '@/context/AuthContext'
-import { Analytics } from '@vercel/analytics/react'
+import { Analytics } from '@vercel/analytics/next'
 
 const inter = Inter({ subsets: ["latin"] });
 
