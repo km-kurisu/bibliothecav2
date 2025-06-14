@@ -1,0 +1,1 @@
+ALTER TABLE books ALTER COLUMN file_url DROP NOT NULL;

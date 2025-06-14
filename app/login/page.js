@@ -5,6 +5,11 @@ import { useRouter } from 'next/navigation'
 import { FiMail, FiLock, FiAlertCircle } from 'react-icons/fi'
 import { useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 
 export default function Login() {
   const router = useRouter()
@@ -59,81 +64,77 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-bold text-[#1d293d]">
-            Sign in to your account
-          </h2>
-          <p className="mt-2 text-center text-sm text-[#1d293d]/70">
+    <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold text-center">Welcome back</CardTitle>
+          <CardDescription className="text-center">
             Don't have an account?{' '}
-            <Link href="/signup" className="font-medium text-[#1d293d] hover:text-[#1d293d]/80">
+            <Link href="/signup" className="text-primary hover:underline">
               Sign up
             </Link>
-          </p>
-        </div>
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {error && (
+            <Alert variant="destructive" className="mb-4">
+              <FiAlertCircle className="h-4 w-4" />
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
 
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg flex items-center gap-2">
-            <FiAlertCircle className="w-5 h-5" />
-            <p>{error}</p>
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-[#1d293d]">
-                Email address
-              </label>
-              <div className="mt-1 relative">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email address</Label>
+              <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FiMail className="h-5 w-5 text-[#1d293d]/50" />
+                  <FiMail className="h-5 w-5 text-muted-foreground" />
                 </div>
-                <input
+                <Input
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
-                  className="appearance-none block w-full pl-10 px-3 py-2 border border-[#1d293d]/20 rounded-lg shadow-sm placeholder-[#1d293d]/50 focus:outline-none focus:ring-[#1d293d] focus:border-[#1d293d] text-[#1d293d]"
                   placeholder="Enter your email"
+                  className="pl-10"
                 />
               </div>
             </div>
 
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-[#1d293d]">
-                Password
-              </label>
-              <div className="mt-1 relative">
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FiLock className="h-5 w-5 text-[#1d293d]/50" />
+                  <FiLock className="h-5 w-5 text-muted-foreground" />
                 </div>
-                <input
+                <Input
                   id="password"
                   name="password"
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="appearance-none block w-full pl-10 px-3 py-2 border border-[#1d293d]/20 rounded-lg shadow-sm placeholder-[#1d293d]/50 focus:outline-none focus:ring-[#1d293d] focus:border-[#1d293d] text-[#1d293d]"
                   placeholder="Enter your password"
+                  className="pl-10"
                 />
               </div>
             </div>
-          </div>
 
-          <div>
-            <button
+            <Button
               type="submit"
               disabled={loading}
-              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#1d293d] hover:bg-[#1d293d]/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1d293d] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full"
             >
               {loading ? 'Signing in...' : 'Sign In'}
-            </button>
-          </div>
-        </form>
-      </div>
+            </Button>
+          </form>
+        </CardContent>
+        <CardFooter className="flex justify-center">
+          <Link href="/forgot-password" className="text-sm text-muted-foreground hover:text-primary">
+            Forgot your password?
+          </Link>
+        </CardFooter>
+      </Card>
     </div>
   )
 } 

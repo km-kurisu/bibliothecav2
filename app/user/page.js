@@ -1,6 +1,8 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 import LogoutButton from '@/components/LogoutButton'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 
 export default async function UserProfile(props) {
   const searchParams = typeof props.searchParams?.then === 'function' ? await props.searchParams : props.searchParams;
@@ -60,6 +62,13 @@ export default async function UserProfile(props) {
     .eq('user_id', validSession.user_id)
     .order('created_at', { ascending: false });
 
+  // Fetch user purchases and their books
+  const { data: purchases, error: purchasesError } = await supabase
+    .from('purchases')
+    .select('id, purchased_at, books(id, title, author, image, file_url)')
+    .eq('user_id', validSession.user_id)
+    .order('purchased_at', { ascending: false });
+
   return (
     <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-8 text-[#1d293d]">
       <div className="max-w-2xl mx-auto space-y-8">
@@ -108,6 +117,10 @@ export default async function UserProfile(props) {
             <p className="text-[#1d293d]/70">No payment history found.</p>
           )}
         </div>
+
+        {/* eBook Library Section */}
+        {/* The eBook library is now handled by the EBookReader component. */}
+        {/* To view your eBook library, visit the E-Book Reader page. */}
 
         <div>
           <LogoutButton />

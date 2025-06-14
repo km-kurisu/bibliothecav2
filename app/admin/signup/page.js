@@ -7,6 +7,9 @@ import { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { adminSignup } from './actions'
 import { FiLock, FiUser, FiAlertCircle } from 'react-icons/fi'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 function AdminSignupInner() {
   const searchParams = useSearchParams()
@@ -37,70 +40,70 @@ function AdminSignupInner() {
         <form className="mt-8 space-y-6" action={adminSignup}>
           <div className="space-y-4">
              <div>
-              <label htmlFor="username" className="block text-sm font-medium text-[#1d293d]">
+              <Label htmlFor="username" className="text-sm font-medium text-[#1d293d]">
                 Username
-              </label>
+              </Label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <FiUser className="h-5 w-5 text-[#1d293d]/50" />
                 </div>
-                <input
+                <Input
                   id="username"
                   name="username"
                   type="text"
                   required
-                  className="appearance-none block w-full pl-10 px-3 py-2 border border-[#1d293d]/20 rounded-lg shadow-sm placeholder-[#1d293d]/50 focus:outline-none focus:ring-[#1d293d] focus:border-[#1d293d] text-[#1d293d]"
                   placeholder="Enter a username"
+                  className="pl-10"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-[#1d293d]">
+              <Label htmlFor="password" className="text-sm font-medium text-[#1d293d]">
                 Password
-              </label>
+              </Label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <FiLock className="h-5 w-5 text-[#1d293d]/50" />
                 </div>
-                <input
+                <Input
                   id="password"
                   name="password"
                   type="password"
                   required
-                  className="appearance-none block w-full pl-10 px-3 py-2 border border-[#1d293d]/20 rounded-lg shadow-sm placeholder-[#1d293d]/50 focus:outline-none focus:ring-[#1d293d] focus:border-[#1d293d] text-[#1d293d]"
                   placeholder="Create a password"
+                  className="pl-10"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-[#1d293d]">
+              <Label htmlFor="confirmPassword" className="text-sm font-medium text-[#1d293d]">
                 Confirm Password
-              </label>
+              </Label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <FiLock className="h-5 w-5 text-[#1d293d]/50" />
                 </div>
-                <input
+                <Input
                   id="confirmPassword"
                   name="confirmPassword"
                   type="password"
                   required
-                  className="appearance-none block w-full pl-10 px-3 py-2 border border-[#1d293d]/20 rounded-lg shadow-sm placeholder-[#1d293d]/50 focus:outline-none focus:ring-[#1d293d] focus:border-[#1d293d] text-[#1d293d]"
                   placeholder="Confirm your password"
+                  className="pl-10"
                 />
               </div>
             </div>
           </div>
 
           <div>
-            <button
+            <Button
               type="submit"
-              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#1d293d] hover:bg-[#1d293d]/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1d293d] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full"
             >
               Create Admin Account
-            </button>
+            </Button>
           </div>
         </form>
       </div>

@@ -4,6 +4,12 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Separator } from '@/components/ui/separator';
 
 export default function Home() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
@@ -25,7 +31,7 @@ export default function Home() {
       if (isPlaying) {
         emblaApi.scrollNext();
       }
-    }, 2000);
+    }, 5000);
 
     return () => clearInterval(autoplay);
   }, [emblaApi, isPlaying]);
@@ -59,7 +65,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       {/* Hero Section with Carousel */}
       <section id="home" className="relative h-[400px] md:h-[500px] lg:h-[600px] bg-[#1d293d]">
         <div 
@@ -71,7 +77,7 @@ export default function Home() {
           <div className="embla__container flex">
             {heroSlides.map((slide, index) => (
               <div key={index} className="embla__slide flex-[0_0_100%] relative h-[400px] md:h-[500px] lg:h-[600px]">
-                <div className="absolute inset-0 bg-[#1d293d]/80 z-10"></div>
+                <div className={`absolute inset-0 bg-[#1d293d]/60 z-10`}></div>
                 <Image
                   src={slide.image}
                   alt={slide.title}
@@ -79,10 +85,13 @@ export default function Home() {
                   className="object-cover"
                   priority={index === 0}
                 />
-                <div className="absolute inset-0 z-20 flex items-center justify-center text-white px-4">
-                  <div className="text-center drop-shadow-lg" > {/* Add text shadow for readability */}
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">{slide.title}</h2>
-                    <p className="text-lg md:text-xl mb-4 md:mb-8">{slide.description}</p>
+                <div className="absolute inset-0 z-20 flex items-center justify-center px-4">
+                  <div className="text-center">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4 text-white dark:text-white">{slide.title}</h2>
+                    <p className="text-lg md:text-xl mb-4 md:mb-8 text-white dark:text-white">{slide.description}</p>
+                    <Button size="lg" variant="secondary" asChild>
+                      <Link href="/shop">Shop Now</Link>
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -91,24 +100,31 @@ export default function Home() {
         </div>
         
         {/* Carousel Navigation Buttons */}
-        <button 
-          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 bg-white/80 p-2 rounded-full hover:bg-white"
+        <Button 
+          variant="ghost"
+          size="icon"
+          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 text-primary-foreground hover:text-primary-foreground/80"
           onClick={scrollPrev}
         >
-          <FiChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-[#1d293d]" />
-        </button>
-        <button 
-          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 bg-white/80 p-2 rounded-full hover:bg-white"
+          <FiChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+        </Button>
+        <Button 
+          variant="ghost"
+          size="icon"
+          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 text-primary-foreground hover:text-primary-foreground/80"
           onClick={scrollNext}
         >
-          <FiChevronRight className="w-5 h-5 md:w-6 md:h-6 text-[#1d293d]" />
-        </button>
+          <FiChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+        </Button>
       </section>
 
       {/* Featured Books Section */}
-      <section id="featured" className="py-12 md:py-20 bg-white">
+      <section id="featured" className="py-12 md:py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-[#1d293d]">Featured Books</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Featured Books</h2>
+            <p className="text-muted-foreground">Discover our handpicked selection of must-read books</p>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {/* Featured Book Cards */}
             {[
@@ -149,72 +165,38 @@ export default function Home() {
                 image: "/covers/thewindupbird.png"
               }
             ].map((book, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="relative h-64 sm:h-72 md:h-80 bg-[#1d293d]/5 flex items-center justify-center">
-                  <Image
-                    src={book.image}
-                    alt={book.title}
-                    fill
-                    className="object-contain p-4"
-                  />
-                </div>
-                <div className="p-4 md:p-6">
-                  <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#1d293d] line-clamp-2">{book.title}</h3>
-                  <p className="text-[#1d293d]/70 mb-2">{book.author}</p>
-                  <p className="text-[#1d293d]/70 mb-4 text-sm md:text-base">A captivating story that will keep you engaged from start to finish.</p>
-                  <div className="flex justify-between items-center">
-                    <p className="text-[#1d293d] font-semibold">₹{book.price.toFixed(2)}</p>
-                    <Link href="/shop" className="bg-[#1d293d] text-white px-3 py-1.5 md:px-4 md:py-2 rounded hover:bg-[#1d293d]/90 transition-colors text-sm md:text-base">
-                      View Details
-                    </Link>
+              <Card key={index} className="overflow-hidden hover:shadow-lg transition-all duration-300 border-accent/20 hover:border-accent">
+                <CardContent className="p-0">
+                  <div className="relative h-64 sm:h-72 md:h-80 bg-muted/5 flex items-center justify-center">
+                    <Image
+                      src={book.image}
+                      alt={book.title}
+                      fill
+                      className="object-contain p-4"
+                    />
                   </div>
-                </div>
-              </div>
+                </CardContent>
+                <CardHeader className="p-4 md:p-6 pb-0">
+                  <CardTitle className="text-lg md:text-xl font-semibold line-clamp-2">{book.title}</CardTitle>
+                  <CardDescription>{book.author}</CardDescription>
+                </CardHeader>
+                <CardContent className="px-4 md:px-6 py-2 text-sm md:text-base text-muted-foreground">
+                  A captivating story that will keep you engaged from start to finish.
+                </CardContent>
+                <CardFooter className="px-4 md:px-6 pt-0 flex justify-between items-center">
+                  <p className="font-semibold">₹{book.price.toFixed(2)}</p>
+                  <Button size="sm" asChild>
+                    <Link href="/shop">View Details</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-12 md:py-20 bg-[#1d293d]/5">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-[#1d293d]">Contact Us</h2>
-          <div className="max-w-2xl mx-auto">
-            <form className="space-y-4 md:space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-[#1d293d]">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  className="mt-1 block w-full rounded-md text-[#1d293d] border-[#1d293d]/20 shadow-sm focus:border-[#1d293d] focus:ring-[#1d293d]"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-[#1d293d]">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  className="mt-1 block w-full text-[#1d293d] rounded-md border-[#1d293d]/20 shadow-sm focus:border-[#1d293d] focus:ring-[#1d293d]"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-[#1d293d]">Message</label>
-                <textarea
-                  id="message"
-                  rows="4"
-                  className="mt-1 block w-full rounded-md text-[#1d293d] border-[#1d293d]/20 shadow-sm focus:border-[#1d293d] focus:ring-[#1d293d]"
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-[#1d293d] text-white px-6 py-3 rounded-lg hover:bg-[#1d293d]/90 transition-colors text-sm md:text-base"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
+      <Separator className="my-8 bg-accent/20" />
+
     </div>
   );
 }

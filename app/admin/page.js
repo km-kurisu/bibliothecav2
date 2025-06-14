@@ -3,6 +3,8 @@ import { redirect } from 'next/navigation'
 import AdminLogoutButton from './components/AdminLogoutButton'
 import { createClient as createServerClient } from '@/utils/supabase/server'
 import Link from 'next/link'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 
 export default async function AdminPage({ searchParams }) {
   const sessionToken = searchParams.session;
@@ -99,9 +101,11 @@ export default async function AdminPage({ searchParams }) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Quick Stats */}
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <h2 className="text-lg font-semibold text-[#1d293d] mb-4">Quick Stats</h2>
-            <div className="space-y-4">
+          <Card className="p-6 shadow-sm border border-gray-200">
+            <CardHeader className="p-0 mb-4">
+              <CardTitle className="text-lg font-semibold text-[#1d293d]">Quick Stats</CardTitle>
+            </CardHeader>
+            <CardContent className="p-0 space-y-4">
               <div>
                 <p className="text-sm text-[#1d293d]/70">Total Users</p>
                 <p className="text-2xl font-bold text-[#1d293d]" suppressHydrationWarning>{totalUsers}</p>
@@ -114,13 +118,15 @@ export default async function AdminPage({ searchParams }) {
                 <p className="text-sm text-[#1d293d]/70">Total Orders</p>
                 <p className="text-2xl font-bold text-[#1d293d]" suppressHydrationWarning>{totalOrders}</p>
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
           {/* Recent Activity */}
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <h2 className="text-lg font-semibold text-[#1d293d] mb-4">Recent Activity</h2>
-            <div className="space-y-4">
+          <Card className="p-6 shadow-sm border border-gray-200">
+            <CardHeader className="p-0 mb-4">
+              <CardTitle className="text-lg font-semibold text-[#1d293d]">Recent Activity</CardTitle>
+            </CardHeader>
+            <CardContent className="p-0 space-y-4">
               <div>
                 <h3 className="font-medium mb-2">Latest Orders</h3>
                 {recentOrders?.map(order => (
@@ -148,33 +154,44 @@ export default async function AdminPage({ searchParams }) {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
           {/* Quick Actions */}
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <h2 className="text-lg font-semibold text-[#1d293d] mb-4">Quick Actions</h2>
-            <div className="space-y-4">
-              <Link 
+          <Card className="p-6 shadow-sm border border-gray-200">
+            <CardHeader className="p-0 mb-4">
+              <CardTitle className="text-lg font-semibold text-[#1d293d]">Quick Actions</CardTitle>
+            </CardHeader>
+            <CardContent className="p-0 space-y-4">
+              <Link
                 href="/admin/books/add"
-                className="block w-full bg-[#1d293d] text-white px-4 py-2 rounded-md hover:bg-[#1d293d]/90 transition-colors text-center"
+                passHref
+                legacyBehavior
               >
-                Add New Book
+                <Button asChild className="w-full bg-[#1d293d] text-white hover:bg-[#1d293d]/90 text-center">
+                   <span>Add New Book</span>
+                </Button>
               </Link>
               <Link
                 href="/admin/orders"
-                className="block w-full bg-[#1d293d] text-white px-4 py-2 rounded-md hover:bg-[#1d293d]/90 transition-colors text-center"
+                passHref
+                legacyBehavior
               >
-                View Orders
+                <Button asChild className="w-full bg-[#1d293d] text-white hover:bg-[#1d293d]/90 text-center">
+                  <span>View Orders</span>
+                </Button>
               </Link>
               <Link
                 href="/admin/users"
-                className="block w-full bg-[#1d293d] text-white px-4 py-2 rounded-md hover:bg-[#1d293d]/90 transition-colors text-center"
+                passHref
+                legacyBehavior
               >
-                Manage Users
+                 <Button asChild className="w-full bg-[#1d293d] text-white hover:bg-[#1d293d]/90 text-center">
+                  <span>Manage Users</span>
+                </Button>
               </Link>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

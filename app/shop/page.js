@@ -3,6 +3,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '../lib/cart';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 const categories = [
   'All',
@@ -154,61 +156,66 @@ export default function Shop() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       {/* Notification */}
       {showNotification && (
-        <div className="fixed top-20 right-4 bg-[#1d293d] text-white px-6 py-3 rounded-lg shadow-lg z-50">
+        <div className="fixed top-20 right-4 bg-foreground text-background px-6 py-3 rounded-lg shadow-lg z-50">
           Item added to cart!
         </div>
       )}
 
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl md:text-4xl font-bold mb-8 text-[#1d293d]">Shop</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-8 text-foreground">Shop</h1>
 
         {/* Categories */}
         <div className="flex flex-wrap gap-2 mb-8">
           {categories.map((category) => (
-            <button
+            <Button
               key={category}
+              variant={selectedCategory === category ? 'default' : 'outline'}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full text-sm md:text-base transition-colors ${
+              className={`text-sm md:text-base transition-all duration-300 ${
                 selectedCategory === category
-                  ? 'bg-[#1d293d] text-white'
-                  : 'bg-[#1d293d]/5 text-[#1d293d] hover:bg-[#1d293d]/10'
+                  ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+                  : 'border text-foreground hover:bg-accent hover:text-accent-foreground hover:scale-105'
               }`}
             >
               {category}
-            </button>
+            </Button>
           ))}
         </div>
 
         {/* Books Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredBooks.map((book) => (
-            <div key={book.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="relative h-64 sm:h-72 md:h-80 bg-[#1d293d]/5 flex items-center justify-center">
-                <Image
-                  src={book.image}
-                  alt={book.title}
-                  fill
-                  className="object-contain p-4"
-                />
-              </div>
-              <div className="p-4 md:p-6">
-                <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#1d293d] line-clamp-2">{book.title}</h3>
-                <p className="text-[#1d293d]/70 mb-2">{book.author}</p>
-                <p className="text-[#1d293d]/70 mb-4 text-sm md:text-base">A captivating story that will keep you engaged from start to finish.</p>
-                <div className="flex justify-between items-center">
-                  <p className="text-[#1d293d] font-semibold">₹{book.price.toFixed(2)}</p>
-                  <button
-                    onClick={() => handleAddToCart(book)}
-                    className="bg-[#1d293d] text-white px-3 py-1.5 md:px-4 md:py-2 rounded hover:bg-[#1d293d]/90 transition-colors text-sm md:text-base"
-                  >
-                    Add to Cart
-                  </button>
+            <Card key={book.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 border-accent/20 hover:border-accent hover:scale-[1.02]">
+              <CardContent className="p-0">
+                <div className="relative h-64 sm:h-72 md:h-80 bg-muted/5 flex items-center justify-center">
+                  <Image
+                    src={book.image}
+                    alt={book.title}
+                    fill
+                    className="object-contain p-4"
+                  />
                 </div>
-              </div>
-            </div>
+              </CardContent>
+              <CardHeader className="p-4 md:p-6 pb-0">
+                <CardTitle className="text-lg md:text-xl font-semibold mb-2 text-foreground line-clamp-2">{book.title}</CardTitle>
+                <CardDescription className="text-muted-foreground mb-2">{book.author}</CardDescription>
+              </CardHeader>
+              <CardContent className="px-4 md:px-6 py-0 text-sm md:text-base text-muted-foreground line-clamp-2">
+                 A captivating story that will keep you engaged from start to finish.
+              </CardContent>
+              <CardFooter className="px-4 md:px-6 pt-4 flex justify-between items-center">
+                <p className="text-foreground font-semibold">₹{book.price.toFixed(2)}</p>
+                <Button
+                  onClick={() => handleAddToCart(book)}
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 text-sm md:text-base"
+                >
+                  Add to Cart
+                </Button>
+              </CardFooter>
+            </Card>
           ))}
         </div>
       </div>
